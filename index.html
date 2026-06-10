@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Для тебя ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ЭКРАН ВХОДА (пароль) -->
+  <div class="gate" id="gate">
+    <form class="gate-card" id="gate-form">
+      <div class="gate-lock">🔒</div>
+      <h2 class="gate-title">введи пароль</h2>
+      <input type="password" id="gate-input" class="gate-input" placeholder="пароль" autocomplete="off" />
+      <button type="submit" class="gate-btn">войти</button>
+      <p class="gate-error" id="gate-error">неверный пароль</p>
+    </form>
+  </div>
+
+  <!-- фон с частицами -->
+  <canvas id="hearts-canvas"></canvas>
+
+  <!-- ЭКРАН 1: приветствие -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-pre reveal">для тебя</p>
+      <h1 class="hero-title reveal">
+        <span class="name name-1">Егор</span>
+        <span class="amp">&amp;</span>
+        <span class="name name-2">Лера</span>
+      </h1>
+      <p class="hero-sub reveal">Лера, это про нас с тобой</p>
+      <div class="scroll-hint reveal">
+        <span>листай вниз</span>
+        <div class="mouse"><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЭКРАН 2: счётчик -->
+  <section class="counter-section">
+    <h2 class="section-title reveal">мы вместе уже</h2>
+    <div class="counter reveal" id="counter">
+      <div class="count-box"><span class="count-num" id="days">0</span><span class="count-label">дней</span></div>
+      <div class="count-box"><span class="count-num" id="hours">0</span><span class="count-label">часов</span></div>
+      <div class="count-box"><span class="count-num" id="minutes">0</span><span class="count-label">минут</span></div>
+      <div class="count-box"><span class="count-num" id="seconds">0</span><span class="count-label">секунд</span></div>
+    </div>
+    <p class="counter-since reveal">с 8 января 2025 года</p>
+    <p class="counter-poetic reveal" id="poetic"></p>
+  </section>
+
+  <!-- ЭКРАН 2.5: живой фотопоток (в реальном времени) -->
+  <section class="live-section">
+    <h2 class="section-title reveal">прямо сейчас</h2>
+    <p class="live-sub reveal">кидай сюда что делаешь — и я сразу это увижу</p>
+
+    <!-- большой виджет: последнее фото -->
+    <div class="live-widget reveal" id="live-widget">
+      <div class="live-empty" id="live-empty">здесь появится последний момент…</div>
+    </div>
+
+    <!-- кто ты + загрузка фото -->
+    <div class="live-controls reveal">
+      <div class="who-toggle" id="who-toggle">
+        <button class="who-btn active" data-who="Егор">это Егор</button>
+        <button class="who-btn" data-who="Лера">это Лера</button>
+      </div>
+      <input type="text" id="live-caption" class="live-caption" placeholder="подпись (необязательно)" maxlength="80" />
+      <label class="live-upload" id="live-upload-label">
+        <input type="file" id="live-file" accept="image/*" hidden />
+        <span id="live-upload-text">📷 добавить момент</span>
+      </label>
+    </div>
+
+    <!-- лента последних моментов -->
+    <div class="live-feed" id="live-feed"></div>
+  </section>
+
+  <!-- ЭКРАН 3: галерея -->
+  <section class="gallery-section">
+    <h2 class="section-title reveal">наши моменты</h2>
+    <p class="gallery-sub reveal">несколько кадров из нашего времени</p>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- ЭКРАН 4: финал -->
+  <section class="final">
+    <div class="final-inner reveal">
+      <p class="final-text">и это только начало.</p>
+      <img class="final-heart" src="https://emojicdn.elk.sh/❤️?style=apple" alt="сердце" />
+      <p class="final-sign">люблю тебя</p>
+    </div>
+  </section>
+
+  <!-- КНОПКА ЧАТА -->
+  <button class="chat-fab" id="chat-fab" aria-label="чат">💬</button>
+
+  <!-- МЕССЕНДЖЕР -->
+  <div class="chat" id="chat">
+    <header class="chat-header">
+      <span class="chat-title">наш чат</span>
+      <div class="chat-header-actions">
+        <button class="chat-logout" id="chat-logout" hidden>сменить фразу</button>
+        <button class="chat-close" id="chat-close" aria-label="закрыть">&times;</button>
+      </div>
+    </header>
+
+    <!-- экран ввода секретной фразы -->
+    <div class="chat-keygate" id="chat-keygate">
+      <div class="chat-keygate-inner">
+        <div class="chat-lock">🔐</div>
+        <p class="chat-keygate-text">введите вашу секретную фразу — она расшифрует переписку. Эту же фразу нужно ввести на обоих телефонах.</p>
+        <div class="who-toggle who-toggle-chat" id="chat-who">
+          <button class="who-btn active" data-who="Егор">я Егор</button>
+          <button class="who-btn" data-who="Лера">я Лера</button>
+        </div>
+        <input type="password" id="chat-key-input" class="chat-key-input" placeholder="секретная фраза" autocomplete="off" />
+        <button class="chat-key-btn" id="chat-key-btn">открыть чат</button>
+        <p class="chat-key-hint">фраза не сохраняется на сервере. Забудете — старые сообщения не прочитать.</p>
+      </div>
+    </div>
+
+    <!-- сам чат -->
+    <div class="chat-main" id="chat-main" hidden>
+      <div class="chat-messages" id="chat-messages"></div>
+      <form class="chat-form" id="chat-form">
+        <input type="text" id="chat-input" class="chat-input" placeholder="сообщение…" autocomplete="off" />
+        <button type="submit" class="chat-send" aria-label="отправить">➤</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- лайтбокс для фото -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img src="" alt="" id="lightbox-img" />
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
+</body>
+</html>
